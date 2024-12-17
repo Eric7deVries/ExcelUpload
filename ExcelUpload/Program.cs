@@ -2,6 +2,8 @@
 using ExcelUpload.Core.Managers;
 using ExcelUpload.Core.Providers;
 using ExcelUpload.Services;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace ExcelUpload
 {
@@ -23,7 +25,18 @@ namespace ExcelUpload
             builder.Services.AddOpenApi();
 
 			builder.Services.AddEndpointsApiExplorer();
-			builder.Services.AddSwaggerGen();
+			builder.Services.AddSwaggerGen(options =>
+            {
+				//options.SwaggerDoc("ExcelUpload", new OpenApiInfo
+				//{
+				//	Version = "1",
+				//	Title = "ExcelUpload API",
+				//	Description = "An Excel practice to do CRUD functionality with Excel",
+				//});
+
+				var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+				options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+			});
 
 			var app = builder.Build();
 
