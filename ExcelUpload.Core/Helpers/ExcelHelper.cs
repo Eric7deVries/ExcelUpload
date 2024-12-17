@@ -6,7 +6,6 @@ public static class ExcelHelper
 {
 	public static Task<byte[]> ToExcelByteArray(List<dynamic> data, string sheetName)
 	{
-		// Check if data exists
 		if (data == null || data.Count == 0)
 			throw new ArgumentException("No data available for export.");
 
@@ -17,13 +16,11 @@ public static class ExcelHelper
 
 		var columnHeaders = ((IDictionary<string, object>)data[0]).Keys.ToList();
 
-		// Add headers to the first row of the worksheet
 		for (int col = 1; col <= columnHeaders.Count; col++)
 		{
 			worksheet.Cells[1, col].Value = columnHeaders[col - 1];
 		}
 
-		// Add rows to the worksheet
 		for (int row = 0; row < data.Count; row++)
 		{
 			var rowData = data[row];

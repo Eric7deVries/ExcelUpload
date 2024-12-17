@@ -18,8 +18,6 @@ namespace ExcelUpload
             builder.Services.AddScoped<IExcelUploadService, ExcelUploadService>();
             builder.Services.AddScoped<IExcelManager, ExcelManager>();
 
-			// Add services to the container.
-
 			builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
@@ -27,20 +25,12 @@ namespace ExcelUpload
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen(options =>
             {
-				//options.SwaggerDoc("ExcelUpload", new OpenApiInfo
-				//{
-				//	Version = "1",
-				//	Title = "ExcelUpload API",
-				//	Description = "An Excel practice to do CRUD functionality with Excel",
-				//});
-
 				var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
 				options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 			});
 
 			var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
@@ -53,7 +43,6 @@ namespace ExcelUpload
 			}
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

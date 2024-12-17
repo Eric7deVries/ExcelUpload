@@ -13,18 +13,15 @@ public static class TestHelper
 		if (data == null || data.People == null || !data.People.Any())
 			throw new ArgumentException("No data available to convert.");
 
-		// Generate an Excel package using EPPlus
 		using var package = new ExcelPackage();
 		var worksheet = package.Workbook.Worksheets.Add("People");
 
-		// Add headers to the Excel file
 		var headers = typeof(TestData.Person).GetProperties().Select(p => p.Name).ToList();
 		for (int col = 0; col < headers.Count; col++)
 		{
 			worksheet.Cells[1, col + 1].Value = headers[col];
 		}
 
-		// Add data rows
 		for (int row = 0; row < data.People.Count; row++)
 		{
 			var person = data.People[row];
@@ -37,12 +34,10 @@ public static class TestHelper
 			}
 		}
 
-		// Save the Excel package to a MemoryStream
 		var stream = new MemoryStream();
 		package.SaveAs(stream);
-		stream.Position = 0; // Reset stream position for reading
+		stream.Position = 0;
 
-		// Create the IFormFile using the MemoryStream
 		var file = new FormFile(stream, 0, stream.Length, "file", "TestData.xlsx")
 		{
 			Headers = new HeaderDictionary(),
@@ -83,7 +78,6 @@ public static class TestHelper
 
 					var cellValue = worksheet.Cells[row, colIndex].Text;
 
-					// Map the cell values to the Person object properties
 					switch (columnName)
 					{
 						case nameof(TestData.Person.ID):

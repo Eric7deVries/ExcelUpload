@@ -33,7 +33,7 @@ public class ExcelUploadServiceTests : TestBase
 	[TestMethod()]
 	public async Task DownloadSampleExcel()
 	{
-		var fakeSampleExcel = new byte[] { 1, 2, 3, 4 }; // Simulate a valid byte array
+		var fakeSampleExcel = new byte[] { 1, 2, 3, 4 };
 		_excelUploadService.Setup(service => service.DownloadSampleExcel())
 			.ReturnsAsync(fakeSampleExcel);
 
@@ -46,7 +46,7 @@ public class ExcelUploadServiceTests : TestBase
 	[TestMethod()]
 	public async Task DownloadExcel()
 	{
-		var fakeExcelFile = new byte[] { 5, 6, 7, 8 }; // Simulate a valid byte array
+		var fakeExcelFile = new byte[] { 5, 6, 7, 8 };
 		_excelUploadService.Setup(service => service.DownloadExcel())
 			.ReturnsAsync(fakeExcelFile);
 
