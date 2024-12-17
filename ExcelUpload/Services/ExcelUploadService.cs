@@ -2,13 +2,12 @@
 using ExcelUpload.Core.Managers;
 using ExcelUpload.Core.Providers;
 using OfficeOpenXml;
-using System.IO;
 
 namespace ExcelUpload.Services;
 
 public interface IExcelUploadService
 {
-	public void UploadExcel(IFormFile file);
+	public Task UploadExcel(IFormFile file);
 	public Task<byte[]> DownloadSampleExcel();
 	public Task<byte[]> DownloadExcel();
 }
@@ -24,7 +23,7 @@ public class ExcelUploadService : IExcelUploadService
 		_excelManager = excelManager;
 	}
 
-	public async void UploadExcel(IFormFile file)
+	public async Task UploadExcel(IFormFile file)
 	{
 		using var stream = new MemoryStream();
 		file.CopyTo(stream);
